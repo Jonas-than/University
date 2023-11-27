@@ -41,11 +41,11 @@
             <div class="bg-[#F5F6FA] h-screen">
                 <div class="px-4 my-4">
                 <div class="flex justify-between items-center">
-                <h1 class="text-3xl font-medium">Lista de Alumnos</h1>
-                <div><span class="text-[#5093f7]">Home </span><span>/ Alumnos</span></div>
+                <h1 class="text-3xl font-medium">Lista de Clases</h1>
+                <div><a href="/dashboard"><span class="text-[#5093f7]">Home </span></a><span>/ Clases</span></div>
                 </div>
                 <div class=" rounded shadow border-gray-500 py-4 bg-[#FFFFFF] mt-6 w-full">
-                    <div class="border-b px-4 flex justify-between pb-4"><span>Informacion de Alumnos</span><a href="/alumnos/create" class="bg-[#0579F2] rounded py-1 px-3 text-white text-l">Agregar Alumno</a></div>
+                    <div class="border-b px-4 flex justify-between pb-4"><span>Informacion de Clases</span><a href="/clases/create" class="bg-[#0579F2] rounded py-1 px-3 text-white text-l">Agregar Clase</a></div>
                     <div class="px-4 mt-6 mb-6 w-full">
                     <table class="border-collapse border border-slate-500 w-full">
                         <thead>
@@ -65,11 +65,11 @@
                     <td class="border border-slate-400 pl-4 py-2"><?= $curso["curso_id"] ?></td>
                     <td class="border border-slate-400 pl-4"><?= $curso["nombre_curso"] ?></td>
                     <td class="border border-slate-400 pl-4"><?= $curso["nombre_maestro"] ?></td>
-                    <td class="border border-slate-400 pl-4"><?= $alumno["alumnos_inscritos"] ?></td>
+                    <td class="border border-slate-400 pl-4"><?= $curso["alumnos_inscritos"] ?></td>
                     <td class="border border-slate-400 text-center">
-                        <a href="/alumnos/edit?id=<?= $alumno["id"] ?>" class="btnEdit"><span class="material-icons text-cyan-500">edit</span></a>
-                        <form action="/alumnos/delete" method="post" style="display: inline;">
-                            <input type="number" hidden value="<?= $alumno["id"] ?>" name="id">
+                        <a href="/clases/edit?id=<?= $curso["curso_id"] ?>" class="btnEdit"><span class="material-icons text-cyan-500">edit</span></a>
+                        <form action="/clases/delete" method="post" style="display: inline;">
+                            <input type="number" hidden value="<?= $curso["curso_id"] ?>" name="id">
                             <button type="submit"><span class="material-icons text-red-500">delete</span></button>
                         </form>
                     </td>

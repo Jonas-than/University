@@ -33,17 +33,6 @@ class Model
         return $data;
     }
 
-
-    /**
-     * Método para eliminar un registro en la tabla.
-     *
-     * @param integer $id
-     */
-    public function destroy($id)
-    {
-        $this->db->query("DELETE FROM {$this->table} WHERE id = $id");
-    }
-
     /**
      * Método para encontrar un dato utilizando la columna, operador y valor.
      *

@@ -1,13 +1,16 @@
 <?php
 require_once $_SERVER["DOCUMENT_ROOT"] . "/Models/Curso.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/Models/Maestro.php";
 
 class CursoController
 {
     protected $model;
+    protected $maestro;
 
     public function __construct()
     {
         $this->model = new Curso();
+        $this->maestro = new Maestro();
     }
 
     /**
@@ -25,6 +28,7 @@ class CursoController
      */
     public function create()
     {
+        $maestros = $this->maestro->getMaestros();
         include $_SERVER["DOCUMENT_ROOT"] . "/views/cursos/create.php";
     }
 
@@ -33,7 +37,8 @@ class CursoController
      */
     public function edit($id)
     {
-        //$cliente = $this->model->find($id);
+        $maestros = $this->maestro->getMaestros();
+        $curso = $this->model->find($id);
 
         include $_SERVER["DOCUMENT_ROOT"] . "/views/cursos/edit.php";
     }
@@ -43,9 +48,14 @@ class CursoController
      */
     public function update($request)
     {
-        //$this->model->update($request);
+        $request = [
+            'materia' => $_POST['materia'],
+            'maestro_asignado' => $_POST['maestro_asignado']
+        ];
+        var_dump($request);
+        $this->model->update($request);
 
-        header("Location: /cursos");
+        header("Location: /clases");
     }
 
     /**
@@ -55,9 +65,13 @@ class CursoController
      */
     public function store($request)
     {
-        //$response = $this->model->create($request);
+        $request = [
+            'materia' => $_POST['materia'],
+            'maestro_id' => $_POST['maestro']
+        ];
+        $response = $this->model->create($request);
 
-        header("Location: /cursos");
+        header("Location: /clases");
     }
 
     /**
@@ -67,6 +81,6 @@ class CursoController
     {
         $this->model->destroy($id);
 
-        header("Location: /cursos");
+        header("Location: /clases");
     }
 }

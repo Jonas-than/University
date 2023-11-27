@@ -42,7 +42,7 @@
                 <div class="px-4 my-4">
                 <div class="flex justify-between items-center">
                 <h1 class="text-3xl font-medium">Lista de Alumnos</h1>
-                <div><span class="text-[#5093f7]">Home </span><span>/ Alumnos</span></div>
+                <div><a href="/dashboard"><span class="text-[#5093f7]">Home </span></a><span>/ Alumnos</span></div>
                 </div>
                 <div class=" rounded shadow border-gray-500 py-4 bg-[#FFFFFF] mt-6 w-full">
                     <div class="border-b px-4 flex justify-between pb-4"><span>Informacion de Alumnos</span><a href="/alumnos/create" class="bg-[#0579F2] rounded py-1 px-3 text-white text-l">Agregar Alumno</a></div>

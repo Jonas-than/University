@@ -8,7 +8,6 @@ class Admin extends Model
     public function update($data)
     {
         $allowed = ['email', 'role_id']; 
-        // Esto hace que sin importar los pares de clave y valor de la variable $data, el $query sea reutilizable.
 
         session_start();
         $userId = $_SESSION['admin_id_edit'];
@@ -29,6 +28,7 @@ class Admin extends Model
         $res = $this->db->query("SELECT 
         u.id,
         u.email,
+        u.estado,
         r.name as rol
         from 
         users u

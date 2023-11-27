@@ -1,7 +1,6 @@
 <?php
 // ENRUTADOR
 require_once "./Controllers/LoginController.php";
-require_once "./Controllers/UserController.php";
 require_once "./Controllers/MaestroController.php";
 require_once "./Controllers/RolesController.php";
 require_once "./Controllers/AlumnoController.php";
@@ -10,7 +9,6 @@ require_once "./Controllers/AdminController.php";
 
 
 $loginController = new LoginController();
-$userController = new UserController();
 $adminController = new AdminController();
 $maestroController = new MaestroController();
 $cursoController = new CursoController();
@@ -31,7 +29,7 @@ if ($method === "POST") {
             break;
 
 
-
+            //permisos listos
         case '/permisos/update':
             $adminController->update($_POST);
             break;
@@ -61,9 +59,23 @@ if ($method === "POST") {
                 break;
         
             case '/alumnos/delete':
-                $alumnoController->delete($_POST["id"]);
+                var_dump($_POST["id"]);
+                //$alumnoController->delete($_POST["id"]);
                 break;
         
+
+        //las clases ya estan completas
+        case '/clases/update':
+            $cursoController->update($_POST);
+            break;
+                
+            case '/clases/create':
+                $cursoController->store($_POST);
+                break;
+                
+            case '/clases/delete':
+                $cursoController->delete($_POST["id"]);
+                break;
 
 
         default:
@@ -83,7 +95,7 @@ if ($method === "GET") {
             break;
 
 
-
+            //permisos listos
         case '/permisos':
             $adminController->index();
             break;
@@ -114,12 +126,29 @@ if ($method === "GET") {
             $alumnoController->index();
             break;
 
+            case '/alumnos/edit':
+                $alumnoController->edit($_GET["id"]);
+                break;
+
+            case '/alumnos/create':
+                $alumnoController->create();
+                break;
 
 
-            
-        case '/cursos':
+
+        //las clases ya estan completas
+        case '/clases':
             $cursoController->index();
             break;
+
+            case '/clases/edit':
+                $cursoController->edit($_GET["id"]);
+                break;
+
+            case '/clases/create':
+                $cursoController->create();
+                break;
+                
 
                        
        

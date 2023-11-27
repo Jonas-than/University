@@ -46,7 +46,7 @@ session_start();
                 <div class="px-4 my-4">
                 <div class="flex justify-between items-center">
                 <h1 class="text-3xl font-medium">Lista de Permisos</h1>
-                <div><span class="text-[#5093f7]">Home </span><span>/ Permisos</span></div>
+                <div><a href="/dashboard"><span class="text-[#5093f7]">Home </span></a><span>/ Permisos</span></div>
                 </div>
                 <div class=" rounded shadow border-gray-500 py-4 bg-[#FFFFFF] mt-6 w-full">
                     <div class="border-b px-4"><span>Informacion de Permisos</span></div>
@@ -57,6 +57,7 @@ session_start();
                                 <th class="border border-slate-600 py-2 text-left pl-4">#</th>
                                 <th class="border border-slate-600 text-left pl-4">Email/Usuario</th>
                                 <th class="border border-slate-600 text-left pl-4">Permiso</th>
+                                <th class="border border-slate-600 text-left pl-4">Estado</th>
                                 <th class="border border-slate-600 text-left pl-4">Acciones</th>
                             </tr>
                         </thead>
@@ -68,6 +69,7 @@ session_start();
                     <td class="border border-slate-400 pl-4 py-2"><?= $user["id"] ?></td>
                     <td class="border border-slate-400 pl-4"><?= $user["email"] ?></td>
                     <td class="border border-slate-400 pl-4"><span class="<?= getRoleClass($user['rol']) ?> py-1 px-1 rounded text-xs font-bold"><?= $user["rol"] ?></span></td>
+                    <td class="border border-slate-400 pl-4"><span class="<?= getActiveClass($user['estado']) ?> py-1 px-1 rounded text-xs font-bold"><?= $user["estado"] ?></span></td>
                     <td class="border border-slate-400 text-center">
                         <a href="/permisos/edit?id=<?= $user["id"] ?>" class="btnEdit"><span class="material-icons text-cyan-500">edit</span></a>
                     </td>
@@ -93,6 +95,17 @@ function getRoleClass($role) {
             return 'bg-[#F9BC20]'; 
         case 'Alumno':
             return 'bg-[#6A7681] text-white'; 
+        default:
+            return '';
+    }
+}
+
+function getActiveClass($estado) {
+    switch ($estado) {
+        case 'activo':
+            return 'bg-[#25A654] text-white'; 
+        case 'inactivo':
+            return 'bg-[#D73846] text-white' ; 
         default:
             return '';
     }
