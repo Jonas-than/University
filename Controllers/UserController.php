@@ -4,77 +4,30 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/Models/User.php";
 class UserController
 {
     protected $model;
+    protected $options;
 
     public function __construct()
     {
         $this->model = new User();
     }
 
-    public function permiso()
+    public function updateMaestros($request)
     {
-        $users = $this->model->permisos();
+        $teacherId = $request['id'];
+    $name = $request['name'];
+    $address = $request['address'];
+    $birthday = $request['birthday'];
+    $courseId = $request['course_id'];
 
-        include $_SERVER["DOCUMENT_ROOT"] . "/views/permisos/permisos.php";
+        $success = $this->model->updateMaestro($teacherId, $name, $address, $birthday, $courseId);
+
+    // Redirecciona según el resultado de la actualización
+    if ($success) {
+        header("Location: /maestros");
+        exit;
+
     }
-
-    public function maestro()
-    {
-        $users = $this->model->all();
-
-        include $_SERVER["DOCUMENT_ROOT"] . "/views/maestros.php";
-    }
-
-    public function alumno()
-    {
-        $users = $this->model->all();
-
-        include $_SERVER["DOCUMENT_ROOT"] . "/views/alumnos.php";
-    }
-
-    public function clase()
-    {
-        $users = $this->model->all();
-
-        include $_SERVER["DOCUMENT_ROOT"] . "/views/clases.php";
-    }
-
-    /**
-     * Muestra una vista con todos los clientes.
-     */
-    // public function index()
-    // {
-    //     $users = $this->model->all();
-
-    //     include $_SERVER["DOCUMENT_ROOT"] . "/views/permisos.php";
-    // }
-
-    /**
-     * Muestra un formulario para crear un nuevo cliente.
-     */
-    public function create()
-    {
-        include $_SERVER["DOCUMENT_ROOT"] . "/views/clientes/create.php";
-    }
-
-    /**
-     * Muestra un formulario para editar un cliente.
-     */
-    public function edit($id)
-    {
-        $user = $this->model->find($id);
-
-        include $_SERVER["DOCUMENT_ROOT"] . "/views/permisos/edit.php";
-    }
-
-    /**
-     * Actualiza los datos de un cliente y envía al usuario a /clientes.
-     */
-    public function update($request)
-    {
-        $this->model->update($request);
-
-        header("Location: /permisos");
-    }
+}
 
     /**
      * Guarda el registro de un nuevo cliente y envía al usuario a /clientes.
@@ -97,4 +50,13 @@ class UserController
 
         header("Location: /clientes");
     }
+
+    public function editTeacher($id)
+    {
+        $teacher = $this->model->find($id);
+        $classes = $this->model->getCourses();
+
+        include $_SERVER["DOCUMENT_ROOT"] . "/views/maestros/edit.php";
+    }
+    
 }

@@ -2,10 +2,20 @@
 // ENRUTADOR
 require_once "./Controllers/LoginController.php";
 require_once "./Controllers/UserController.php";
+require_once "./Controllers/MaestroController.php";
+require_once "./Controllers/RolesController.php";
+require_once "./Controllers/AlumnoController.php";
+require_once "./Controllers/CursoController.php";
+require_once "./Controllers/AdminController.php";
 
 
 $loginController = new LoginController();
 $userController = new UserController();
+$adminController = new AdminController();
+$maestroController = new MaestroController();
+$cursoController = new CursoController();
+$roleController = new RoleController();
+$alumnoController = new AlumnoController();
 
 
 // Dividimos la ruta por el signo "?" para no leer los query params. Ejem: /clientes?id=1
@@ -20,17 +30,41 @@ if ($method === "POST") {
             $loginController->login($_POST["email"], $_POST["password"]);
             break;
 
+
+
         case '/permisos/update':
-            $userController->update($_POST);
+            $adminController->update($_POST);
             break;
 
-        // case '/clientes/create':
-        //     $clienteController->store($_POST);
-        //     break;
 
-        // case '/clientes/update':
-        //     $clienteController->update($_POST);
-        //     break;
+
+        case '/maestros/update':
+            $maestroController->update($_POST);
+            break;
+
+            case '/maestros/create':
+                $maestroController->store($_POST);
+                break;
+
+            case '/maestros/delete':
+                $maestroController->delete($_POST["id"]);
+                break;
+
+
+
+        case '/alumnos/update':
+            $alumnoController->update($_POST);
+            break;
+        
+            case '/alumnos/create':
+                $alumnoController->store($_POST);
+                break;
+        
+            case '/alumnos/delete':
+                $alumnoController->delete($_POST["id"]);
+                break;
+        
+
 
         default:
             echo "NO ENCONTRAMOS LA RUTA.";
@@ -48,24 +82,43 @@ if ($method === "GET") {
             $loginController->dashboard();
             break;
 
+
+
         case '/permisos':
-            $userController->permiso();
+            $adminController->index();
             break;
 
             case '/permisos/edit':
-                $userController->edit($_GET["id"]);
+                $adminController->edit($_GET["id"]);
                 break;
 
+
+
+
         case '/maestros':
-            $userController->maestro();
-            break;
-                
-        case '/alumnos':
-            $userController->alumno();
+            $maestroController->index();
             break;
 
-        case '/clases':
-            $userController->clase();
+            case '/maestros/edit':
+                $maestroController->edit($_GET["id"]);
+                break;
+
+            case '/maestros/create':
+                $maestroController->create();
+                break;
+                
+
+
+
+        case '/alumnos':
+            $alumnoController->index();
+            break;
+
+
+
+            
+        case '/cursos':
+            $cursoController->index();
             break;
 
                        

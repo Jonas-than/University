@@ -62,7 +62,7 @@ session_start();
                         </thead>
                         <tbody>
                         <?php
-            foreach ($users as $user) {
+            foreach ($admin as $user) {
             ?>
                 <tr class="bg-white odd:bg-[#F2F2F2]">
                     <td class="border border-slate-400 pl-4 py-2"><?= $user["id"] ?></td>

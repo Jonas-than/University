@@ -20,7 +20,7 @@
             <div class="mb-3"><a href="/permisos" class="text-[#8F9398] flex items-center"><span class="material-icons text-[#8F9398] mr-3">manage_accounts</span>Permisos</a></div>
             <div class="mb-3"><a href="/maestros" class="text-[#8F9398] flex items-center"><span class="material-icons text-[#8F9398] mr-3">emoji_objects</span>Maestros</a></div>
             <div class="mb-3"><a href="/alumnos" class="text-[#8F9398] flex items-center"><span class="material-icons text-[#8F9398] mr-3">school</span>Alumnos</a></div>
-            <div class="mb-3"><a href="/clases" class="text-[#8F9398] flex items-center"><span class="material-icons text-[#8F9398] mr-3">class</span>Clases</a></div>
+            <div class="mb-3"><a href="/cursos" class="text-[#8F9398] flex items-center"><span class="material-icons text-[#8F9398] mr-3">class</span>Clases</a></div>
         </div>
         </div>
         <div class="w-5/6 flex flex-col">
