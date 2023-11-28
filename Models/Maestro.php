@@ -89,91 +89,39 @@ class Maestro extends Model
     //modificar esta funcion
     public function create($data)
     {
-        // try {
-            
-        //     $nombreMaestro = $data['name'];
-        //     $emailMaestro = $data['email'];
-        //     $direccionMaestro = $data['address'];
-        //     $fechaNacimientoMaestro = $data['birthday'];
-    
-            
-        //     $queryMaestro = "INSERT INTO users (name, email, address, birthday) VALUES ('$nombreMaestro', '$emailMaestro', '$direccionMaestro', '$fechaNacimientoMaestro')";
-        //     $resMaestro = $this->db->query($queryMaestro);
-    
-        //     if (!$resMaestro) {
-        //         throw new Exception("No se pudo crear el maestro");
-        //     }
-    
-        //     $maestro_id = $this->db->insert_id;
-    
-    
-        //     $queryAsignarRol = "INSERT INTO users (id, role_id) VALUES ($maestro_id, 2)";
-        //     $resAsignarRol = $this->db->query($queryAsignarRol);
-    
-        //     if (!$resAsignarRol) {
-        //         throw new Exception("No se pudo asignar el rol de maestro al usuario");
-        //     }
-    
-        //     $curso_id = $data['course_id'];  
-    
-            
-        //     $queryAsignacion = "INSERT INTO cursos_maestros (course_id, maestro_id) VALUES ($curso_id, $maestro_id)";
-        //     $resAsignacion = $this->db->query($queryAsignacion);
-    
-        //     if (!$resAsignacion) {
-        //         throw new Exception("No se pudo asignar el maestro a la clase");
-        //     }
-    
-        //     $data = $this->find($curso_id);
-    
-        //     return $data;
-    
-        // } catch (mysqli_sql_exception $e) {
-        //     echo "Error: " . $e->getMessage();
-        // } catch (Exception $e) {
-        //     echo "Error: " . $e->getMessage();
-        // }
         try {
             
+            $nombreMaestro = $data['name'];
+            $emailMaestro = $data['email'];
+            $direccionMaestro = $data['address'];
+            $fechaNacimientoMaestro = $data['birthday'];
             $data['role_id'] = 2;
-    
-            // Esto hace que sin importar los pares de clave y valor de la variable $data, el $query sea reutilizable.
-            $keys = array_keys($data);
-            $keysString = implode(", ", $keys);
-    
-            $values = array_values($data);
-    
             
-            $escapedValues = array_map(function($value) {
-                return $this->db->real_escape_string($value);
-            }, $values);
+            $queryMaestro = "INSERT INTO users (name, email, address, birthday, role_id) VALUES ('$nombreMaestro', '$emailMaestro', '$direccionMaestro', '$fechaNacimientoMaestro', 2)";
+            $resMaestro = $this->db->query($queryMaestro);
     
-            $valuesString = implode("', '", $escapedValues);
-    
-            
-            $query = "INSERT INTO {$this->table}($keysString) VALUES ('$valuesString')";
-            $res = $this->db->query($query);
-    
-            if ($res) {
-                
-                $ultimoIdMaestro = $this->db->insert_id;
-    
-               
-                $claseId = $data['course_id']; 
-    
-                $queryAsignacion = "INSERT INTO cursos_maestros (course_id, maestro_id) VALUES ('$claseId', '$ultimoIdMaestro')";
-                $resAsignacion = $this->db->query($queryAsignacion);
-    
-                if ($resAsignacion) {
-                    $data = $this->find($ultimoIdMaestro);
-                    return $data;
-                } else {
-                    return "Error al asignar la clase al maestro";
-                }
-            } else {
-                return "No se pudo crear el maestro";
+            if (!$resMaestro) {
+                throw new Exception("No se pudo crear el maestro");
             }
+    
+            $maestro_id = $this->db->insert_id;
+            $curso_id = $data['course_id'];
+    
+        
+            $queryAsignacion = "INSERT INTO cursos_maestros (course_id, maestro_id) VALUES ($curso_id, $maestro_id)";
+            $resAsignacion = $this->db->query($queryAsignacion);
+    
+            if (!$resAsignacion) {
+                throw new Exception("No se pudo asignar el maestro a la clase");
+            }
+    
+            $data = $this->find($maestro_id);
+    
+            return $data;
+    
         } catch (mysqli_sql_exception $e) {
+            echo "Error: " . $e->getMessage();
+        } catch (Exception $e) {
             echo "Error: " . $e->getMessage();
         }
     }

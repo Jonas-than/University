@@ -34,7 +34,7 @@ if ($method === "POST") {
             break;
 
 
-            //solo faltan que se agregue de una en maestros
+            //maestros listos
         case '/maestros/update':
             $maestroController->update($_POST);
             break;
