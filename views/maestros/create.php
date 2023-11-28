@@ -33,13 +33,13 @@
         <select name="course_id" id="course" class="w-full mb-2 border rounded h-8 px-2">
         <option value="" disabled selected>Seleccione una clase</option>
         <?php foreach ($cursos as $curso): ?>
-            <option>
+            <option value="<?= $curso['id'] ?>">
                 <?= $curso['name'] ?>
             </option>
         <?php endforeach; ?>
         </select>
         </div>
-        <div class="flex justify-end items-center"><a href="/maestros" class="bg-[#6C737C] text-white rounded w-1/4 mt-4 py-2 mx-4 flex items-center justify-center">Close</a><button type="submit" class="bg-[#007CFC] mt-4 text-white w-1/2 rounded py-2">Guardar cambios</button></div>
+        <div class="flex justify-end items-center"><a href="/maestros" class="bg-[#6C737C] text-white rounded w-1/4 mt-4 py-2 mx-4 flex items-center justify-center">Close</a><button type="submit" class="bg-[#007CFC] mt-4 text-white w-1/2 rounded py-2">Crear</button></div>
     </form>
     </div>
         </div>

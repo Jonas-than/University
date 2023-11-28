@@ -40,6 +40,7 @@ if ($method === "POST") {
             break;
 
             case '/maestros/create':
+                //var_dump($_POST);
                 $maestroController->store($_POST);
                 break;
 
@@ -48,7 +49,7 @@ if ($method === "POST") {
                 break;
 
 
-
+                //ya esta listo alumnos
         case '/alumnos/update':
             $alumnoController->update($_POST);
             break;
@@ -59,7 +60,7 @@ if ($method === "POST") {
         
             case '/alumnos/delete':
                 var_dump($_POST["id"]);
-                //$alumnoController->delete($_POST["id"]);
+                $alumnoController->delete($_POST["id"]);
                 break;
         
 
@@ -124,7 +125,7 @@ if ($method === "GET") {
                 
 
 
-
+                //listos alumnos
         case '/alumnos':
             $alumnoController->index();
             break;

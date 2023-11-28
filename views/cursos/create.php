@@ -26,7 +26,7 @@
         <?php endforeach; ?>
         </select>
         </div>
-        <div class="flex justify-end items-center"><a href="/clases" class="bg-[#6C737C] text-white rounded w-1/4 mt-4 py-2 mx-4 flex items-center justify-center">Close</a><button type="submit" class="bg-[#007CFC] mt-4 text-white w-1/2 rounded py-2">Guardar cambios</button></div>
+        <div class="flex justify-end items-center"><a href="/clases" class="bg-[#6C737C] text-white rounded w-1/4 mt-4 py-2 mx-4 flex items-center justify-center">Close</a><button type="submit" class="bg-[#007CFC] mt-4 text-white w-1/2 rounded py-2">Crear</button></div>
     </form>
     </div>
         </div>

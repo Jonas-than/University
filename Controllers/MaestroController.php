@@ -79,13 +79,6 @@ class MaestroController
     public function store($request)
     {
 
-        $request = [
-            'email' => $_POST['email'],
-            'name' => $_POST['name'],
-            'address' => $_POST['address'],
-            'birthday' => $_POST['birthday'],
-            'course_id' => $_POST['course_id'],
-        ];
         $response = $this->model->create($request);
 
         header("Location: /maestros");

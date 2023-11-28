@@ -33,7 +33,7 @@ class AlumnoController
      */
     public function edit($id)
     {
-        //$cliente = $this->model->find($id);
+        $alumno = $this->model->find($id);
 
         include $_SERVER["DOCUMENT_ROOT"] . "/views/alumnos/edit.php";
     }
@@ -43,7 +43,13 @@ class AlumnoController
      */
     public function update($request)
     {
-        //$this->model->update($request);
+        $request = [
+            'dni' => $_POST['dni'],
+            'name' => $_POST['name'],
+            'address' => $_POST['address'],
+            'birthday' => $_POST['birthday'],
+        ];
+        $this->model->update($request);
 
         header("Location: /alumnos");
     }
@@ -55,7 +61,7 @@ class AlumnoController
      */
     public function store($request)
     {
-       // $response = $this->model->create($request);
+       $response = $this->model->create($request);
 
         header("Location: /alumnos");
     }
@@ -65,7 +71,7 @@ class AlumnoController
      */
     public function delete($id)
     {
-        //$this->model->destroy($id);
+        $this->model->destroy($id);
 
         header("Location: /alumnos");
     }
