@@ -1,3 +1,7 @@
+<?php
+session_start();
+$rol = $_SESSION["user"]["role_id"];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,11 +20,38 @@
             <h2 class=" text-[#8F9398] text-sm">Administrador</h2>
         </div>
         <div class="mx-2 px-2 flex flex-col mt-6 mb-4">
-            <h1 class="text-[#8F9398] text-center mb-4">MENU ADMINISTRACION</h1>
-            <div class="mb-3"><a href="/permisos" class="text-[#8F9398] flex items-center"><span class="material-icons text-[#8F9398] mr-3">manage_accounts</span>Permisos</a></div>
+            
+            <?php
+            if ($rol == 1) {
+                ?>
+                <h1 class="text-[#8F9398] text-center mb-4">MENU ADMINISTRACION</h1>
+                <div class="mb-3"><a href="/permisos" class="text-[#8F9398] flex items-center"><span class="material-icons text-[#8F9398] mr-3">manage_accounts</span>Permisos</a></div>
             <div class="mb-3"><a href="/maestros" class="text-[#8F9398] flex items-center"><span class="material-icons text-[#8F9398] mr-3">emoji_objects</span>Maestros</a></div>
             <div class="mb-3"><a href="/alumnos" class="text-[#8F9398] flex items-center"><span class="material-icons text-[#8F9398] mr-3">school</span>Alumnos</a></div>
             <div class="mb-3"><a href="/clases" class="text-[#8F9398] flex items-center"><span class="material-icons text-[#8F9398] mr-3">class</span>Clases</a></div>
+            <?php
+            }
+            ?>
+            <?php
+            if ($rol == 2) {
+                ?>
+                <h1 class="text-[#8F9398] text-center mb-4">MENU MAESTROS</h1>
+            <div class="mb-3"><a href="/alumnos" class="text-[#8F9398] flex items-center"><span class="material-icons text-[#8F9398] mr-3">school</span>Alumnos</a></div>
+            
+            <?php
+            }
+            ?>
+            <?php
+            if ($rol == 3) {
+                ?>
+                <h1 class="text-[#8F9398] text-center mb-4">MENU ALUMNOS</h1>
+                
+            <div class="mb-3"><a href="#" class="text-[#8F9398] flex items-center"><span class="material-icons text-[#8F9398] mr-3">school</span>Ver Calificaciones</a></div>
+            <div class="mb-3"><a href="#" class="text-[#8F9398] flex items-center"><span class="material-icons text-[#8F9398] mr-3">class</span>Administra tus Clases</a></div>
+            <?php
+            }
+            ?>
+        
         </div>
         </div>
         <div class="w-5/6 flex flex-col">
@@ -34,8 +65,8 @@
                     <button class=""><span class="material-icons text-[#8F9398]">expand_more</span></button>
                 </div>
                 <div id="logout-modal">
-                <a href=""><span class="material-icons">account_circle</span><span>Perfil</span></a>
-                <a href=""><span class="material-icons">logout</span><span>Logout</span></a>
+                <a href="#"><span class="material-icons">account_circle</span><span>Perfil</span></a>
+                <a href="/index.php"><span class="material-icons text-red-500">logout</span><span class="text-red-500">Logout</span></a>
                 </div>
             </nav>
             <div class="bg-[#F5F6FA] h-screen">
@@ -52,22 +83,6 @@
             </div>
         </div>
     </div>
-    <?php
-    session_start();
-    $rol = $_SESSION["user"]["role_id"];
-
-    if ($rol == 1) {
-        echo "<h2>Bienvenido, admin</h2>";
-    }
-
-    if ($rol == 2) {
-        echo "<h2>Bienvenido, maestro</h2>";
-    }
-
-    if ($rol == 3) {
-        echo "<h2>Bienvenido, alumno</h2>";
-    }
-    ?>
 
 </body>
 </html>

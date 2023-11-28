@@ -12,7 +12,6 @@
     <h1 class="text-3xl">Agregar Maestro</h1>
     <div class="flex flex-col">
     <form action="/maestros/create" method="post" class="mt-6 flex flex-col">
-        <input type="hidden" name="id" value="<?= $teacher['id'] ?>">
         <div>
         <label for="email" class="mb-3 text-sm font-bold">Correo Electronico</label>
         <input type="email" class="w-full mb-2 border rounded h-8 px-2" id="email" name="email" placeholder="Ingresa email">

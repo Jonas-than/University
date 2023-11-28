@@ -35,7 +35,7 @@
                 </div>
                 <div id="logout_modal" class="hidden fixed top-10 right-4 border rounded shadow bg-white">
                 <div class="flex items-center"><a href="" class="flex items-center"><span class="material-icons">account_circle</span><span>Perfil</span></a></div>
-                <div class="flex items-center"><a href="" class="flex items-center"><span class="material-icons">logout</span><span>Logout</span></a></div>
+                <div class="flex items-center"><a href="" class="flex items-center"><span class="material-icons text-red-500">logout</span><span class="text-red-500">Logout</span></a></div>
                 </div>
             </nav>
             <div class="bg-[#F5F6FA] h-screen">

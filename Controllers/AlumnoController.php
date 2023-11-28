@@ -65,7 +65,7 @@ class AlumnoController
      */
     public function delete($id)
     {
-        $this->model->destroy($id);
+        //$this->model->destroy($id);
 
         header("Location: /alumnos");
     }

@@ -7,6 +7,7 @@ if (!isset($teacher)) {
 
 session_start();
 $_SESSION["teacher_id_edit"] = $teacher["id"];
+//$_SESSION["curso_id_edit"] = $curso["id"];
 ?>
 <!DOCTYPE html>
 <html lang="en">

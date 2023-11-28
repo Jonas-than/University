@@ -14,4 +14,6 @@ class Alumno extends Model
         $data = $res->fetch_all(MYSQLI_ASSOC);
         return $data;
     }
+
+    
 }

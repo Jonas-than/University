@@ -72,6 +72,10 @@
                     <td class="border border-slate-400 pl-4"><span class="<?= ($teacher['assigned_class'] === 'Sin asignación') ? 'bg-[#F9BA2D] py-1 px-1 rounded text-xs font-bold' : '' ?>"><?= $teacher["assigned_class"] ?></span></td>
                     <td class="border border-slate-400 text-center">
                         <a href="/maestros/edit?id=<?= $teacher["id"] ?>" class="btnEdit"><span class="material-icons text-cyan-500">edit</span></a>
+                        <form action="/maestros/delete" method="post" style="display: inline;">
+                            <input type="number" hidden value="<?= $teacher["id"] ?>" name="id">
+                            <button type="submit"><span class="material-icons text-red-500">delete</span></button>
+                        </form>
                     </td>
                 </tr>
             <?php

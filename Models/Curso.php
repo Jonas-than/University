@@ -89,7 +89,7 @@ class Curso extends Model
 
     public function destroy($id)
     {
-        $this->db->query("DELETE FROM courses WHERE id = $id");
+        $this->db->query("DELETE FROM {$this->table} WHERE id = $id");
     }
 
     public function create($data)

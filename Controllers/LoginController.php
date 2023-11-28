@@ -30,10 +30,7 @@ class LoginController
             $_SESSION["user"] = $usuario[0];
 
             header("Location: /dashboard");
-            // } else {
-            //     echo "Credenciales incorrectas";
-            // }
-            
+
         } else {
             echo "Credenciales incorrectas";
         }
@@ -47,5 +44,16 @@ class LoginController
     public function dashboard()
     {
         include $_SERVER["DOCUMENT_ROOT"] . "/views/dashboard.php";
+    }
+
+    public function logout() {
+        
+        session_start();
+        session_destroy();
+        
+
+        // Redirigir a la página de inicio o a una página de login, según tu lógica
+        header("Location: /index.php");
+        exit();
     }
 }

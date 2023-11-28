@@ -7,7 +7,6 @@ require_once "./Controllers/AlumnoController.php";
 require_once "./Controllers/CursoController.php";
 require_once "./Controllers/AdminController.php";
 
-
 $loginController = new LoginController();
 $adminController = new AdminController();
 $maestroController = new MaestroController();
@@ -35,7 +34,7 @@ if ($method === "POST") {
             break;
 
 
-
+            //solo faltan que se agregue de una en maestros
         case '/maestros/update':
             $maestroController->update($_POST);
             break;
@@ -90,6 +89,10 @@ if ($method === "GET") {
             $loginController->index();
             break;
 
+        case '/logout':
+            $loginController->logout();
+            break;
+
         case '/dashboard':
             $loginController->dashboard();
             break;
@@ -106,7 +109,7 @@ if ($method === "GET") {
 
 
 
-
+                //listos maestros
         case '/maestros':
             $maestroController->index();
             break;

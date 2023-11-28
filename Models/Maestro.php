@@ -49,161 +49,98 @@ class Maestro extends Model
         }
     }
 
-    // public function update($data)
-    // {
-    //     $updatePairs = [];
-
-    //     foreach ($data as $key => $value) {
-    //         $updatePairs[] = "$key = '$value'";
-    //     }
-
-    //     session_start();
-        
-    // // Actualizar la tabla 'users'
-    // $queryUsers = "UPDATE {$this->table}
-    // SET " . implode(', ', $updatePairs) . "
-    // WHERE id = {$_SESSION["teacher_id_edit"]}";
-
-    // // Actualizar la tabla 'course_teachers'
-    // $queryCourseTeachers = "UPDATE course_teachers
-    // SET course_id = {$_SESSION["teacher_id_edit"]}
-    // WHERE teacher_id = {$_SESSION["teacher_id_edit"]}";
-        
-    //     $this->db->begin_transaction();
-
-    //     try {
-    //         $this->db->query($queryUsers);
-    //         $this->db->query($queryCourseTeachers);
-    
-    //         // Confirmar la transacción si todo está bien
-    //         $this->db->commit();
-    //     } catch (Exception $e) {
-    //         // Revertir la transacción en caso de error
-    //         $this->db->rollback();
-    //         echo "Error: " . $e->getMessage();
-    //     }
-    // }
 
      public function update($data)
     {
-        // $updatePairs = [];
-
-        // foreach ($data as $key => $value) {
-        //     $updatePairs[] = "$key = '$value'";
-        // }
-
-        // $query = "UPDATE cursos_maestros SET " . implode(", ", $updatePairs) . " WHERE id = {$data['id']}";
-        // $this->db->query($query);
-
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            // Recuperar datos del formulario
-            $nombre = $_POST["name"];
-            $direccion = $_POST["address"];
-            $fecha_nacimiento = $_POST["birthday"];
-            $course_id = $_POST["course_id"];
-        
-            // Realizar la conexión a la base de datos (asegúrate de tener las credenciales correctas)
-            $mysqli = new mysqli("localhost", "root", "", "university");
-        
-            // Verificar la conexión
-            if ($mysqli->connect_error) {
-                die("Conexión fallida: " . $mysqli->connect_error);
+        session_start();
+        //$curso_id = $_SESSION["curso_id_edit"];
+        $curso_id = $data["course_id"];
+    
+        // Obtener el maestro asignado si se proporciona en los datos
+        if (isset($data['id'])) {
+            $maestro_id = $data['id'];
+    
+            // Verificar si ya existe una relación para este curso
+            $existingRelationQuery = "SELECT * FROM cursos_maestros WHERE course_id = $curso_id";
+            $existingRelationResult = $this->db->query($existingRelationQuery);
+    
+            if ($existingRelationResult->num_rows > 0) {
+                // Si ya hay una relación, actualizar el maestro
+                $queryMaestros = "UPDATE cursos_maestros SET maestro_id = $maestro_id WHERE course_id = $curso_id";
+            } else {
+                // Si no hay una relación, insertar una nueva
+                $queryMaestros = "INSERT INTO cursos_maestros (course_id, maestro_id) VALUES ($curso_id, $maestro_id)";
             }
-        
-            // Iniciar una transacción
-            $mysqli->begin_transaction();
-        
-            try {
-                // ID del maestro que deseas actualizar (reemplaza con la lógica adecuada)
-                session_start();
-
-                $maestro_id = $_SESSION["teacher_id_edit"];
-        
-                // Escapar y sanear los datos (ten en cuenta que esta no es la mejor práctica, pero es una forma de mitigar la inyección de SQL)
-                $nombre = $mysqli->real_escape_string($nombre);
-                $direccion = $mysqli->real_escape_string($direccion);
-                $fecha_nacimiento = $mysqli->real_escape_string($fecha_nacimiento);
-        
-                // Consulta de actualización para la tabla users
-                $query_users = "UPDATE users SET
-                                name = '$nombre',
-                                address = '$direccion',
-                                birthday = '$fecha_nacimiento'
-                                WHERE id = $maestro_id";
-        
-                // Consulta de actualización para la tabla cursos_maestros
-                $query_cursos_maestros = "UPDATE cursos_maestros SET
-                                          clase_id = $course_id
-                                          WHERE maestro_id = $maestro_id";
-        
-                // Ejecutar las consultas
-                $mysqli->query($query_users);
-                $mysqli->query($query_cursos_maestros);
-        
-                // Confirmar la transacción
-                $mysqli->commit();
-        
-                echo "Maestro actualizado con éxito.";
-            } catch (Exception $e) {
-                // Revertir la transacción en caso de error
-                $mysqli->rollback();
-        
-                echo "Error al actualizar el maestro: " . $e->getMessage();
-            }
-        
-            // Cerrar la conexión
-            $mysqli->close();
-    }
+    
+            $this->db->query($queryMaestros);
+        }
+    
+        // Actualizar el maestro en la tabla 'users' si se proporcionan datos del maestro
+        if (isset($data['name']) && isset($data['address']) && isset($data['birthday'])) {
+            $nombre = $data['name'];
+            $direccion = $data['address'];
+            $fechaNacimiento = $data['birthday'];
+    
+            // Actualizar los datos del maestro en la tabla 'users'
+            $queryMaestro = "UPDATE users SET name = '$nombre', address = '$direccion', birthday = '$fechaNacimiento' WHERE id = $maestro_id";
+            $this->db->query($queryMaestro);
+        }
+    
+        session_destroy();
     
     }
 
+    //modificar esta funcion
     public function create($data)
     {
         try {
-            // Iniciar la transacción
-            $this->db->begin_transaction();
+            
+            $nombreMaestro = $data['name'];
+            $emailMaestro = $data['email'];
+            $direccionMaestro = $data['address'];
+            $fechaNacimientoMaestro = $data['birthday'];
     
-            // Escapar y sanear los datos (esto no es la mejor práctica, pero es una forma de mitigar la inyección de SQL)
-            $escapedData = [];
-            foreach ($data as $key => $value) {
-                $escapedData[$key] = $this->db->real_escape_string($value);
+            
+            $queryMaestro = "INSERT INTO users (name, email, address, birthday) VALUES ('$nombreMaestro', '$emailMaestro', '$direccionMaestro', '$fechaNacimientoMaestro')";
+            $resMaestro = $this->db->query($queryMaestro);
+    
+            if (!$resMaestro) {
+                throw new Exception("No se pudo crear el maestro");
             }
     
-            // Crear el maestro en la tabla users
-            $keysString = implode(", ", array_keys($escapedData));
-            $valuesString = implode("', '", array_values($escapedData));
+            $maestro_id = $this->db->insert_id;
     
-            $queryUser = "INSERT INTO users ($keysString) VALUES ('$valuesString')";
-            $resUser = $this->db->query($queryUser);
     
-            if (!$resUser) {
-                throw new Exception("No se pudo crear el maestro en la tabla users");
+            $queryAsignarRol = "INSERT INTO users (id, role_id) VALUES ($maestro_id, 2)";
+            $resAsignarRol = $this->db->query($queryAsignarRol);
+    
+            if (!$resAsignarRol) {
+                throw new Exception("No se pudo asignar el rol de maestro al usuario");
             }
     
-            // Obtener el ID del maestro recién insertado
-            $maestroId = $this->db->insert_id;
+            $curso_id = $data['course_id'];  
     
-            // Crear la asignación de clase en la tabla cursos_maestros
-            $claseId = $escapedData['course_id']; // Asegúrate de que el formulario proporcione el ID de la clase
-            $queryCursosMaestros = "INSERT INTO cursos_maestros (maestro_id, course_id) VALUES ('$maestroId', '$claseId')";
-            $resCursosMaestros = $this->db->query($queryCursosMaestros);
+            
+            $queryAsignacion = "INSERT INTO cursos_maestros (course_id, maestro_id) VALUES ($curso_id, $maestro_id)";
+            $resAsignacion = $this->db->query($queryAsignacion);
     
-            if (!$resCursosMaestros) {
-                throw new Exception("No se pudo asignar la clase al maestro en la tabla cursos_maestros");
+            if (!$resAsignacion) {
+                throw new Exception("No se pudo asignar el maestro a la clase");
             }
     
-            // Confirmar la transacción
-            $this->db->commit();
+            $data = $this->find($curso_id);
     
-            // Devolver el maestro creado
-            $data = $this->find($maestroId);
             return $data;
-        } catch (Exception $e) {
-            // Revertir la transacción en caso de error
-            $this->db->rollback();
     
-            // Devolver el mensaje de error
-            return "Error: " . $e->getMessage();
+        } catch (mysqli_sql_exception $e) {
+            echo "Error: " . $e->getMessage();
+        } catch (Exception $e) {
+            echo "Error: " . $e->getMessage();
         }
+    }
+
+    public function destroy($id)
+    {
+        $this->db->query("DELETE FROM {$this->table} WHERE id = $id");
     }
 }
