@@ -67,10 +67,8 @@ class Curso extends Model
             $existingRelationResult = $this->db->query($existingRelationQuery);
             
             if ($existingRelationResult->num_rows > 0) {
-                // Si ya hay una relación, actualizar el maestro
                 $queryMaestros = "UPDATE cursos_maestros SET maestro_id = $maestro_id WHERE course_id = $curso_id";
             } else {
-                // Si no hay una relación, insertar una nueva
                 $queryMaestros = "INSERT INTO cursos_maestros (course_id, maestro_id) VALUES ($curso_id, $maestro_id)";
             }
     

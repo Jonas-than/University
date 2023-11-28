@@ -40,10 +40,8 @@ class Maestro extends Model
         $data = $res->fetch_all(MYSQLI_ASSOC);
 
         if (!empty($data)) {
-            // Devuelve un array con un solo elemento si hay un resultado
             return $data[0];
         } else {
-            // Devuelve un array vacío si no hay resultados
             return $data;
         }
         }
@@ -86,7 +84,6 @@ class Maestro extends Model
     
     }
 
-    //modificar esta funcion
     public function create($data)
     {
         try {

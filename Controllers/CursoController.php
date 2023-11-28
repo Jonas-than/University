@@ -14,7 +14,7 @@ class CursoController
     }
 
     /**
-     * Muestra una vista con todos los clientes.
+     * Muestra una vista con todos las clases.
      */
     public function index()
     {
@@ -24,7 +24,7 @@ class CursoController
     }
 
     /**
-     * Muestra un formulario para crear un nuevo cliente.
+     * Muestra un formulario para crear una nueva clase.
      */
     public function create()
     {
@@ -33,7 +33,7 @@ class CursoController
     }
 
     /**
-     * Muestra un formulario para editar un cliente.
+     * Muestra un formulario para editar una clase.
      */
     public function edit($id)
     {
@@ -44,7 +44,7 @@ class CursoController
     }
 
     /**
-     * Actualiza los datos de un cliente y envía al usuario a /clientes.
+     * Actualiza los datos de una clase y envía al usuario a /clases.
      */
     public function update($request)
     {
@@ -59,7 +59,7 @@ class CursoController
     }
 
     /**
-     * Guarda el registro de un nuevo cliente y envía al usuario a /clientes.
+     * Guarda el registro de una nueva clase y envía al usuario a /clases.
      * 
      * @param array $request Datos del cliente nuevo
      */
@@ -75,7 +75,7 @@ class CursoController
     }
 
     /**
-     * Eliminar el registro de un cliente y envía al usuario a /clientes.
+     * Eliminar el registro de una clase y envía al usuario a /clases.
      */
     public function delete($id)
     {

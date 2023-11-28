@@ -18,22 +18,37 @@ class LoginController
         include $_SERVER["DOCUMENT_ROOT"] . "/views/login.php";
     }
 
-    public function login($email, $password)
+    public function login($email, $password, $isHashed = false)
     {
-        
+
         $usuario = $this->model->where("email", "=", $email);
+
+    if (count($usuario) === 1) {
+        $storedPassword = $usuario[0]["password"];
+
         
-
-        if (count($usuario) === 1) {
-            // if(password_verify($password, $usuario[0]["password"])){
-            session_start();
-            $_SESSION["user"] = $usuario[0];
-
-            header("Location: /dashboard");
-
+        if ($isHashed) {
+            
+            if (password_verify($password, $storedPassword)) {
+                session_start();
+                $_SESSION["user"] = $usuario[0];
+                header("Location: /dashboard");
+            } else {
+                echo "Credenciales incorrectas";
+            }
         } else {
-            echo "Credenciales incorrectas";
+            
+            if ($password === $storedPassword) {
+                session_start();
+                $_SESSION["user"] = $usuario[0];
+                header("Location: /dashboard");
+            } else {
+                echo "Credenciales incorrectas";
+            }
         }
+    } else {
+        echo "Credenciales incorrectas";
+    }
     }
 
     public function storePassword($password)
@@ -51,8 +66,6 @@ class LoginController
         session_start();
         session_destroy();
         
-
-        // Redirigir a la página de inicio o a una página de login, según tu lógica
         header("Location: /index.php");
         exit();
     }

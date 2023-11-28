@@ -39,7 +39,7 @@ class AlumnoController
     }
 
     /**
-     * Actualiza los datos de un cliente y envía al usuario a /clientes.
+     * Actualiza los datos de un alumno y envía al usuario a /alumnos.
      */
     public function update($request)
     {
@@ -55,7 +55,7 @@ class AlumnoController
     }
 
     /**
-     * Guarda el registro de un nuevo cliente y envía al usuario a /clientes.
+     * Guarda el registro de un nuevo alumno y envía al usuario a /alumnos.
      * 
      * @param array $request Datos del cliente nuevo
      */
@@ -67,7 +67,7 @@ class AlumnoController
     }
 
     /**
-     * Eliminar el registro de un cliente y envía al usuario a /clientes.
+     * Eliminar el registro de un alumno y envía al usuario a /alumnos.
      */
     public function delete($id)
     {

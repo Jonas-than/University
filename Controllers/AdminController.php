@@ -38,7 +38,7 @@ class AdminController
     }
 
     /**
-     * Actualiza los datos de un cliente y envía al usuario a /clientes.
+     * Actualiza los datos de un cliente y envía al usuario a /permisos.
      */
     public function update($request)
     {
