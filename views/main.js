@@ -1,8 +1,6 @@
 
 
 
-
-
 const btnLogout = document.querySelectorAll('.toggleButton');
 const modal = document.querySelector('#logout_modal')
 

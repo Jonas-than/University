@@ -7,7 +7,6 @@ if (!isset($teacher)) {
 
 session_start();
 $_SESSION["teacher_id_edit"] = $teacher["id"];
-//$_SESSION["curso_id_edit"] = $curso["id"];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,6 +42,7 @@ $_SESSION["teacher_id_edit"] = $teacher["id"];
         <div>
         <label for="course" class="mb-3 text-sm font-bold">Clase Asignada</label>
         <select name="course_id" id="course" class="w-full mb-2 border rounded h-8 px-2">
+            <option disabled selected>Seleccione un clase</option>
         <?php foreach ($cursos as $curso): ?>
             <option value="<?= $curso['id'] ?>" <?= ($teacher['assigned_class'] === $curso['name']) ? 'selected' : '' ?> >
                 <?= $curso['name'] ?>
