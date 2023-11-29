@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2023 at 03:21 PM
+-- Generation Time: Nov 29, 2023 at 07:25 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -20,24 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `university`
 --
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `admin_teachers`
--- (See below for the actual view)
---
-CREATE TABLE `admin_teachers` (
-);
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `admin_view`
--- (See below for the actual view)
---
-CREATE TABLE `admin_view` (
-);
 
 -- --------------------------------------------------------
 
@@ -163,24 +145,6 @@ INSERT INTO `users` (`id`, `dni`, `name`, `email`, `password`, `address`, `birth
 (14, '2525345445', 'Gustavo Aquino', 'aquino@aquino', 'maestro', 'Victor Hugo Sicouret y Alberto Nuques', '2008-07-27', 2, 'activo'),
 (18, '32542534524', 'Victor Ortiz', 'victor@victor', 'alumno', 'Victor Hugo Sicouret y Alberto Nuques', '2001-11-12', 3, 'activo'),
 (20, NULL, 'Jonathan Litardo', 'jonathan@jonathan', NULL, 'Rexburg, Idaho', '2003-01-28', 2, 'activo');
-
--- --------------------------------------------------------
-
---
--- Structure for view `admin_teachers`
---
-DROP TABLE IF EXISTS `admin_teachers`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `admin_teachers`  AS SELECT `c`.`name` AS `course`, `u`.`name` AS `teacher` FROM (((`users` `u` join `roles` `r` on(`r`.`id` = `u`.`role_id`)) join `course_teachers` `ct` on(`ct`.`teacher_id` = `u`.`id`)) join `courses` `c` on(`c`.`id` = `ct`.`course_id`)) WHERE `r`.`name` = 'maestro' ;
-
--- --------------------------------------------------------
-
---
--- Structure for view `admin_view`
---
-DROP TABLE IF EXISTS `admin_view`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `admin_view`  AS SELECT `c`.`name` AS `course`, `u1`.`name` AS `teacher`, `u2`.`name` AS `student` FROM ((((`courses` `c` left join `course_teachers` `ct` on(`ct`.`course_id` = `c`.`id`)) left join `users` `u1` on(`u1`.`id` = `ct`.`teacher_id`)) left join `course_enrollment` `ce` on(`ce`.`course_id` = `c`.`id`)) left join `users` `u2` on(`u2`.`id` = `ce`.`student_id`)) ;
 
 --
 -- Indexes for dumped tables
