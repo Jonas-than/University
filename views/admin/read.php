@@ -8,6 +8,10 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="/dist/output.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+    
     <script src="/views/main.js"></script>
     <title>Permisos</title>
 </head>
@@ -51,7 +55,7 @@ session_start();
                 <div class=" rounded shadow border-gray-500 py-4 bg-[#FFFFFF] mt-6 w-full">
                     <div class="border-b px-4"><span>Informacion de Permisos</span></div>
                     <div class="px-4 mt-6 mb-6 w-full">
-                    <table class="border-collapse border border-slate-500 w-full">
+                    <table class="border-collapse border border-slate-500 w-full" id="myTable">
                         <thead>
                             <tr>
                                 <th class="border border-slate-600 py-2 text-left pl-4">#</th>
